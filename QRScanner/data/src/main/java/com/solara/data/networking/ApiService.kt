@@ -12,7 +12,7 @@ import retrofit2.http.POST
  */
 interface ApiService {
     companion object {
-        const val BASE_URL = "https://qrscanner-2amx.onrender.com"
+        const val BASE_URL = "https://qrscanner-w104.onrender.com"
     }
 
     /**
