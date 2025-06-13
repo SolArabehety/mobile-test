@@ -19,6 +19,8 @@ It includes:
 
 ## 📱 Android App
 
+You can review the complete commit history in my original repository here: https://github.com/SolArabehety/QRScanner.
+
 ### Features
 
 - Generate a new QR code from a seed fetched from the backend
