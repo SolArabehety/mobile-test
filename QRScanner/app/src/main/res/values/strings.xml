@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">QRScanner</string>
+    <string name="menu_scan_qr">Scan QR</string>
+    <string name="menu_create_qr">Create QR</string>
+    <string name="menu_description">Open Menu</string>
+    <string name="no_internet_connection">No internet connection. Please check your connection and try again.</string>
+    <string name="server_error">Oops! Something went wrong on our end. Please try again later.</string>
+    <string name="generic_error">Something went wrong. Please try again or contact support if the issue persists.</string>
+    <string name="expired_token">The QR has expired.</string>
+    <string name="invalid_qr_generation">There was a problem generating the QR. Please try again.</string>
+    <string name="error_title">Unexpected Error</string>
+    <string name="new_qr_seed">New QR Seed Generated: %s</string>
+    <string name="expires_in">Expires in: %d s…</string>
+    <string name="expired_qr">"- Expired - "</string>
+    <string name="qr_code_description">QR Generated</string>
+    <string name="back">Back</string>
+    <string name="qr_valid">This QR is valid!</string>
+    <string name="qr_invalid">This QR has expired :(</string>
+    <string name="permission_denied">Camera permission was permanently denied.</string>
+    <string name="permission_requesting">Requesting camera permission...</string>
+
+</resources>

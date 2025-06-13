@@ -1,32 +1,129 @@
-# Superformula Mobile Developer Coding Test
+# QRScanner
 
-Make sure you read **all** of this document carefully, and follow the guidelines in it.
+This project was built as part of the Superformula Mobile Developer Coding Challenge.
+This tool allows you to generate a QR code with an expiration time and later scan it to verify whether it’s still active or has expired.
 
-## Requirements
 
-There is only one test here currently, please review and get back to us.
 
-## What We Care About
 
-Use any libraries that you would normally use if this were a real production App. Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature.
+https://github.com/user-attachments/assets/68551b6b-f073-41be-94c6-4fa87dd0b042
 
-_We're interested in your method and how you approach the problem just as much as we're interested in the end result._
 
-Here's what you should strive for:
 
-- Good use of structure, security, and performance best practices.
-- Solid testing approach.
-- Extensible code.
+https://github.com/user-attachments/assets/8668329d-c2c0-427b-9908-d8b759f9031e
 
-## Q&A
+It includes:
 
-> Where should I send back the result when I'm done?
+- A backend service in Node.js to generate and validate QR seeds
+- A Kotlin Android app to generate, display, and scan QR codes
 
-Fork this repo and send us a pull request when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
+## 📱 Android App
 
-> What if I have a question?
+### Features
 
-Just create a new issue in this repo and we will respond and get back to you quickly.
+- Generate a new QR code from a seed fetched from the backend
+- Automatically expires after 5 minutes
+- Scan QR codes and validate them against the backend
+- Clean UI with navigation across three screens
 
-## Review
-The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions. 
+### How to run
+
+1. Clone this repo
+2. Open the project in Android Studio Hedgehog or later
+3. Run the app on an emulator or physical device (Android 8+)
+4. The backend is hosted on Render and available publicly
+
+### Requirements
+
+- Android Studio Hedgehog
+- Android SDK 34
+- Gradle Plugin 8.11.1
+- Kotlin 1.9+
+
+
+### Architecture
+
+- **MVVM** pattern with clean separation between UI, business logic, and data layers.
+- **Hilt** for dependency injection
+- **Jetpack Compose** for UI
+- **CameraX** for QR code scanning
+- **Coroutines + StateFlow** for reactive state handling
+- **Retrofit** for networking
+- **Custom Result wrapper** for error handling
+
+🧱 Simplified Class Tree
+
+````
+
+MainActivity
+└── NavHost (Start, CreateQR, ScanQR)
+
+UI
+├── StartScreen
+├── CreateQRScreen → SuccessScreen
+└── ScanQRScreen → CameraView → QRCodeAnalyzer
+
+ViewModels
+├── MainViewModel → GenerateSeedUseCase
+└── ScanQRViewModel → ValidateSeedUseCase
+
+UseCases
+├── GenerateSeedUseCase
+└── ValidateSeedUseCase
+
+Repository
+└── QRRepositoryImpl → ApiService (Retrofit)
+
+Model
+├── Seed
+└── SeedError (enum)
+
+````
+
+
+
+
+### 🧪 Testing
+Unit tests are included for key components
+
+ViewModel, UseCase and Repository layers are tested with MockK and Turbine
+
+To run tests:
+
+./gradlew test
+
+## 🌐 Backend
+
+- Built with **Node.js 20+** and **Express**
+- Two endpoints: 
+  - `POST /seed` to generate a seed
+  - `GET /validate?seed=xyz` to validate if a seed is valid or expired
+- Seeds expire after 5 minutes
+- Data is stored in memory
+
+### Deployment
+
+The backend is hosted on Render and available publicly.
+
+### How to run locally
+
+```bash
+git clone https://github.com/SolArabehety/QRScanner
+cd qr-backend
+npm install
+npm start
+```
+
+Then the server will be running at http://localhost:3000.
+
+For Android emulator:
+change the BASE_URL [here](QRScanner/data/src/main/java/com/solara/data/networking/ApiService.kt) to "http://10.0.2.2:3000"
+
+API Endpoints
+
+curl -X POST http://10.0.2.2:3000/seed     
+
+curl -X POST http://10.0.2.2:3000/validate 
+  -H "Content-Type: application/json" \
+  -d '{"seed": "exampleseed"}'
+
